@@ -1,0 +1,26 @@
+{
+  "models": [
+    {
+      "name": "qwen27b",
+      "label": "Qwen 27B — DGX Spark (run.sh)",
+      "cwd": "~/Desktop/dgx-spark-qwen38",
+      "command": "ENGINE_BIND=0.0.0.0 ./run.sh",
+      "port": null,
+      "match": "Desktop/dgx-spark-qwen38",
+      "expectedGpuGb": null,
+      "expectedRamGb": null,
+      "readyProbe": { "kind": "alive", "ms": 30000 }
+    },
+    {
+      "name": "nemotron30b",
+      "label": "NVIDIA Nemotron 3.5 Lightning 30B-A3B NVFP4 (vLLM)",
+      "cwd": "/",
+      "command": "export MODEL_CKPT=nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4\nexport DSPARK_CKPT=nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4-DSpark\nvllm serve --model $MODEL_CKPT \\\n  --host 0.0.0.0 --port 8000 \\\n  --moe-backend marlin \\\n  --kv-cache-dtype fp8 \\\n  --enable-prefix-caching \\\n  --gpu-memory-utilization 0.85 \\\n  --speculative_config.num_speculative_tokens 3 \\\n  --mamba-backend flashinfer \\\n  --mamba-cache-mode align \\\n  --reasoning-parser nemotron_v3 \\\n  --speculative_config.model $DSPARK_CKPT \\\n  --tool-call-parser qwen3_coder \\\n  --enable-auto-tool-choice",
+      "port": 8000,
+      "match": "vllm serve --model nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4",
+      "expectedGpuGb": null,
+      "expectedRamGb": null,
+      "readyProbe": { "kind": "port", "ms": 300000 }
+    }
+  ]
+}

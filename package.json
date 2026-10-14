@@ -1,0 +1,15 @@
+{
+  "name": "llm-manager",
+  "version": "0.1.0",
+  "description": "Zero-dependency Node.js API to start, stop, and monitor local LLMs (vLLM, run.sh) on the host",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test test/"
+  },
+  "engines": {
+    "node": ">=18.2"
+  },
+  "license": "MIT"
+}
