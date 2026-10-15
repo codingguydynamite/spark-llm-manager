@@ -234,11 +234,12 @@ Module boundaries:
 |---|---|---|
 | `LLM_API_PORT` | `8790` | listen port |
 | `LLM_API_HOST` | `0.0.0.0` | bind address |
-| `LLM_API_TOKEN` | (generated on first boot, printed once) | bearer token |
+| `LLM_API_TOKEN` | from gitignored `token.env` (default `TOKEN_FILE`); generated per boot if absent | bearer token |
 | `SWEEP_INTERVAL_MS` | `1500000` (25 min) | background liveness sweep |
 | `REFRESH_MIN_AGE_MS` | `300000` (5 min) | cache age after which status triggers bg refresh |
 | `MODEL_DIR` | `/workspace/llm-manager/models.json` | catalog path |
 | `LOG_DIR` | `/workspace/llm-manager/logs` | per-model log dir |
+| `TOKEN_FILE` | `/workspace/llm-manager/token.env` | env file holding secrets (`LLM_API_TOKEN`); gitignored, real env vars always win |
 | `ENABLE_GPU_PROBE` | `auto` | `auto` (detect nvidia-smi) / `1` / `0` |
 | `STOP_GRACE_MS` | `10000` | SIGTERM→SIGKILL grace |
 
@@ -262,8 +263,8 @@ Module boundaries:
    children.
 8. **GPU probe absent** → memory endpoint omits GPU section with a note,
    never errors.
-9. **Token leaked** → rotate by restarting pm2 process with new env;
-   documented in skill.
+9. **Token leaked** → rotate: edit `token.env` (or `LLM_API_TOKEN` env) and
+   `sudo pm2 reload llm-manager`; documented in skill.
 
 ---
 

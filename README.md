@@ -47,7 +47,9 @@ curl -s -H "Authorization: Bearer $T" http://192.168.1.19:8790/memory
   `skills/llm-manager/SKILL.md` for the full field guide), then
   `sudo pm2 reload llm-manager`.
 - Env vars: `LLM_API_PORT` (8790), `LLM_API_HOST` (0.0.0.0),
-  `LLM_API_TOKEN`, `SWEEP_INTERVAL_MS` (25 min), `REFRESH_MIN_AGE_MS`
+  `LLM_API_TOKEN` (or `token.env` file, see above), `TOKEN_FILE` (path
+  override for the token file), `SWEEP_INTERVAL_MS` (25 min),
+  `REFRESH_MIN_AGE_MS`
   (5 min), `STOP_GRACE_MS` (10 s), `ENABLE_GPU_PROBE` (auto|on|off),
   `STOP_CHILDREN_ON_SHUTDOWN` (default off — LLMs survive API restarts and
   are re-adopted from `/proc`).

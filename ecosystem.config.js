@@ -12,8 +12,10 @@ module.exports = {
       env: {
         LLM_API_HOST: '0.0.0.0',
         LLM_API_PORT: '8790',
-        // Pin the bearer token across restarts (otherwise one is generated per boot):
-        // LLM_API_TOKEN: 'replace-me',
+        // Bearer token: do NOT put a secret here (this file is committed).
+        // Put it in the gitignored token.env file instead (template: .env.example):
+        //   cp .env.example token.env   # then edit LLM_API_TOKEN, chmod 600
+        // The API loads it on boot (override path with TOKEN_FILE env var).
         SWEEP_INTERVAL_MS: String(25 * 60 * 1000), // liveness sweep every 25 min
         REFRESH_MIN_AGE_MS: String(5 * 60 * 1000), // status cache older than this triggers bg refresh
         STOP_GRACE_MS: '10000',

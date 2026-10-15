@@ -21,6 +21,7 @@ const { Sweeper } = require('./lib/sweeper');
 const { Router, sendJson } = require('./lib/http');
 const mem = require('./lib/memory');
 const proc = require('./lib/process');
+const { loadEnvFile } = require('./lib/envfile');
 
 const log = (...a) => console.log(new Date().toISOString(), ...a);
 
@@ -231,6 +232,11 @@ function buildApp(cfg, opts = {}) {
 }
 
 async function main() {
+  // Secret env vars (e.g. LLM_API_TOKEN) live in a gitignored token file
+  // (default <repo>/token.env, override via TOKEN_FILE) so they survive
+  // host/pm2 restarts without being committed. Real env vars always win.
+  loadEnvFile({ file: process.env.TOKEN_FILE, log });
+
   let cfg;
   try {
     cfg = buildConfig();

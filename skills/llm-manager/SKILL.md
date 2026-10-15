@@ -17,7 +17,8 @@ you need to start/stop/inspect a local model on that machine.
   `Authorization: Bearer $LLM_API_TOKEN`
 - **Never hardcode or print the token.** Read it from the `LLM_API_TOKEN`
   environment variable, or ask the user for it. On the host it lives in the
-  pm2 env / `ecosystem.config.js`.
+  gitignored `token.env` file in the repo (loaded on every API boot; the
+  committed `ecosystem.config.js` holds no secrets).
 
 ## Endpoints
 
